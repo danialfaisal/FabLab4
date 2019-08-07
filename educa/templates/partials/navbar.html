@@ -1,0 +1,128 @@
+{% load static %}
+
+<section class="menu-area">
+    <div class="container-xl">
+        <div class="row">
+            <div class="col">
+                <nav class="navbar navbar-expand-lg navbar-light bg-light">
+
+                    <ul class="mobile-header-buttons">
+                        <li><a class="mobile-nav-trigger" href="#mobile-primary-nav">Menu<span></span></a></li>
+                        <li><a class="mobile-search-trigger" href="#mobile-search">Search<span></span></a></li>
+                    </ul>
+
+                    <a class="navbar-brand" href="/">
+                        {#                        {{ --<img src="" alt="" height="30">--}}#}
+                        FAB LAB
+                    </a>
+
+                    {% include 'partials/menu.html' %}
+
+                    {% if request.user.is_instructor %}
+                    {% elif request.user.is_superuser %}
+                    {% else %}
+                    <form class="inline-form" action="{% url 'students:search' %}" method="get" style="width: 100%;">
+                        <div class="input-group search-box mobile-search">
+                            <input type="text" name='q' class="form-control"
+                                   placeholder="Search for courses">
+                            <div class="input-group-append">
+                                <button class="btn" type="submit"><i class="fas fa-search"></i></button>
+                            </div>
+                        </div>
+                    </form>
+                    {% endif %}
+
+                    {% if request.user.is_instructor %}
+                        <div class="input-group search-box mobile-search">
+                            <div class="input-group-append">
+                            </div>
+                        </div>
+                    {% elif request.user.is_superuser %}
+                        <div class="input-group search-box mobile-search">
+                            <div class="input-group-append">
+                            </div>
+                        </div>
+                    {% else %}
+                    {% endif %}
+
+
+
+                    <div class="wishlist-box menu-icon-box" id="wishlist_items">
+                        {% if request.user.is_instructor %}
+                            <a href="{% url 'instructors:manage_course_list' %}" class="btn btn-sign-up">Instructor Portal</a>
+                          {% elif request.user.is_superuser %}
+                    <a href="{% url 'feedback:post_list' %}" class="btn btn-sign-up">Feedbacks</a>
+                        {% endif %}
+                    </div>
+
+                    {% if request.user.is_instructor %}
+                    {% elif request.user.is_superuser %}
+                    {% elif request.user.is_authenticated %}
+                    <div class="cart-box menu-icon-box" id="cart_items">
+                        {% include 'partials/cart.html' %}
+                    </div>
+                    {% else %}
+                    {% endif %}
+
+
+                    {% if request.user.is_authenticated %}
+                        <div class="user-box menu-icon-box">
+                            <div class="icon">
+                                <a href="">
+                                    <img src="{% static 'images/avatar.png' %}" alt="" class="img-fluid">
+                                </a>
+                            </div>
+                            <div class="dropdown user-dropdown corner-triangle top-right">
+                                <ul class="user-dropdown-menu">
+
+                                    <li class="dropdown-user-info">
+                                        <a href="">
+                                            <div class="clearfix">
+                                                <div class="user-image float-left">
+                                                    <img src="{% static 'images/avatar.png' %}" alt=""
+                                                         class="img-fluid">
+                                                </div>
+                                                <div class="user-details">
+                                                    <div class="user-name">
+                                                        <span class="hi">hi,</span> {{ request.user.username }}
+                                                    </div>
+                                                    <div class="user-email">
+                                                        <span class="email">{{ request.user.name }}</span>
+                                                        <span class="welcome">Welcome back</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </li>
+
+                                    {% if request.user.is_instructor %}
+                                    {% elif request.user.is_superuser %}
+                                    {% else %}
+                                    <li class="user-dropdown-menu-item">
+                                        <a href="{% url 'account:enrolled-courses' %}">
+                                            <i class="far fa-gem"></i>Enrolled Courses
+                                        </a>
+                                    </li>
+                                        {% endif %}
+                                    <li class="dropdown-user-logout user-dropdown-menu-item">
+                                        <a href="{% url 'account:logout' %}">Logout</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    {% else %}
+                        <span class="signin-box-move-desktop-helper"></span>
+                        <div class="sign-in-box btn-group">
+
+                            <a href="{% url 'account:login' %}" class="btn btn-sign-in">Login</a>
+
+                            <a href="{% url 'account:register' %}" class="btn btn-sign-up">Sign up</a>
+
+
+                        </div>
+                    {% endif %}
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>

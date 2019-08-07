@@ -1,0 +1,161 @@
+{% extends 'layouts/base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+    <section class="category-header-area">
+        <div class="container-lg">
+            <div class="row">
+                <div class="col">
+                    <nav>
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item">
+                                <a href="/">
+                                    <i class="fas fa-home"></i>
+                                </a>
+                            </li>
+                            <li class="breadcrumb-item">
+                                <a href="#">
+                                    {{ category.title }}
+                                </a>
+                            </li>
+                        </ol>
+                    </nav>
+                    <h1 class="category-name">
+                        {{ category.title }}
+                    </h1>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="category-course-list-area">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <div class="category-filter-box filter-box clearfix">
+
+                        <div class="btn-group category-list">
+                            <a class="btn btn-outline-secondary dropdown-toggle" href="#" data-toggle="dropdown">
+                                Category List
+                            </a>
+                            <div class="dropdown-menu">
+                                {% for category in categories %}
+                                    <a class="dropdown-item" href="{% url 'courses:course-by-category' category.slug %}">
+                                        {{ category.title }}
+                                    </a>
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="category-course-list">
+                        <ul>
+                            {% for course in courses %}
+                                <li>
+                                    <div class="course-box-2">
+                                        <div class="course-image">
+                                            <a href="{% url 'courses:course-details' course.slug %}">
+                                                <img src="{% static 'images/learning.jpg' %}" alt="" class="img-fluid">
+                                            </a>
+                                        </div>
+                                        <div class="course-details">
+                                            <a href="{% url 'courses:course-details' course.slug %}"
+                                               class="course-title">{{ course.title }}</a>
+                                            {#                                            {{--<a href="" class="course-instructor">--}}#}
+                                            {#                                                {{--<span class="instructor-name">first_name last_name</span>--}}#}
+                                            {#                                                {{-----}}#}
+                                            {#                                            {{--</a>--}}#}
+                                            <div class="course-subtitle">
+                                                {{ course.description }}
+                                            </div>
+                                            <div class="course-meta">
+                                                <span class="">
+                                                    <i class="fas fa-play-circle"></i>
+                                                    {{ course.lessons.count }} Lessons
+                                                </span>
+                                                <span class="">
+                                                    <i class="far fa-clock"></i>
+                                                    3 hours
+                                                </span>
+                                                <span class="">
+                                                    <i class="fas fa-closed-captioning"></i>English
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="course-price-rating">
+                                            <div class="course-price">
+                                                <div title="Click to get the INR price" onclick="getCurrency({{ course.price }})" id="currencyVal">
+                                                    <span class="current-price">${{ course.price }}</span>
+                                                </div>
+                                                {#                                                {{--<span class="original-price">$300</span>--}}#}
+                                            </div>
+                                            <div class="rating">
+                                                <i class="fas fa-star filled"></i>
+                                                <i class="fas fa-star filled"></i>
+                                                <i class="fas fa-star filled"></i>
+                                                <i class="fas fa-star"></i>
+                                                <span class="d-inline-block average-rating">5</span>
+                                            </div>
+                                            <div class="rating-number">
+                                                33 Ratings
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <nav>
+                        {#                        {{ $courses->links() }}#}
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </section>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+
+    <style>
+.course-price {
+    cursor: pointer;
+}
+    </style>
+    <script>
+
+    function getCurrency(price) {
+        endpoint = 'live';
+        access_key = '5d7eba2a1ea30229f21777a0a4141ee7';
+
+        // define from currency, to currency, and amount
+        from = "USD";
+        to = "INR";
+        amount = price;
+        combine = from + to;
+        // execute the conversion using the "convert" endpoint:
+        $.ajax({
+            url: 'http://apilayer.net/api/' + endpoint + '?access_key=' + access_key + '&from=' + from + '&to=' + to + '&amount=' + amount,
+            dataType: 'jsonp',
+            success: function (json) {
+
+                value = json.quotes[combine];
+                // access the conversion result in json.result
+                {#alert(value * price);#}
+                {#total = value * price;#}
+            }
+
+        });
+
+        Swal.fire({
+            title: 'USD to INR',
+            text: "Value of $"+price +" is ₹"+ Math.round(value * price),
+            type: 'info',
+            confirmButtonText: 'OK'
+                 })
+
+
+    }
+
+    </script>
+{% endblock %}

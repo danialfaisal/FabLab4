@@ -1,0 +1,18 @@
+{% extends 'layouts/base.html' %}
+
+{% block content %}
+    {% for post in posts %}
+        <div class="post">
+                <p>Feedback Posted on: {{ post.published_date }}</p>
+            <p>User: {{ post.author }}</p>
+            <h5><a>Title: {{ post.title }}</a></h5>
+            <p>{{ post.text|linebreaksbr }}</p>
+            {#           <p>Translation: {{ post.obj2}}</p>#}
+            <p><span style="background-color:yellow">Word Count: {{ post.w_count}} | Letter Count: {{ post.c_count}}</span></p>
+            <p><span style="background-color:#37f51c">{% if post.tonename1 %}Tone name: {{ post.tonename1 }} | Score:{{ post.score1 }} {% endif %}</span></p>
+            <p><span style="background-color:#37f51c">{% if post.tonename1 %}Tone name: {{ post.tonename2 }} | Score:{{ post.score2 }} {% endif %}</span></p>
+        </div>
+    {% endfor %}
+{% endblock %}
+
+

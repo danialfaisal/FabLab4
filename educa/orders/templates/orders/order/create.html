@@ -1,0 +1,43 @@
+{% extends "layouts/base.html" %}
+{% load staticfiles %}
+
+    <link rel="stylesheet" type="text/css" href="{% static "frontend/css/orders.css" %}"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.5.0/css/all.css'
+          integrity='sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU' crossorigin='anonymous'>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+{% block content %}
+  <h1>Checkout</h1>
+
+  <div class="order-info">
+    <h3>Your order</h3>
+
+
+    <ul>
+        {% for item in cart %}
+            <li>
+                {{ item.course.title }}- {{ item.course.name }}
+                <span>${{ item.total_price|floatformat:"2" }}</span>
+            </li>
+        {% endfor %}
+        {% if cart.coupon %}
+            <li>
+                "{{ cart.coupon.code }}" ({{ cart.coupon.discount }}% off)
+                <span>- ${{ cart.get_discount|floatformat:"2" }}</span>
+            </li>
+        {% endif %}
+    </ul>
+
+    <p>Total: ${{ cart.get_total_price|floatformat:"2" }}</p>
+  </div>
+
+  <form action="." method="post" class="order-form">
+    {{ form.as_p }}
+    <p><input type="submit" value="Place order"></p>
+    {% csrf_token %}
+  </form>
+{% endblock %}
