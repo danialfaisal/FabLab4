@@ -3,7 +3,6 @@
 __pycache__
 VenvMfs
 db.sqlite3
-/static
 .DS_Store
 *.log
 /.idea
