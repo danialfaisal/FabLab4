@@ -170,21 +170,6 @@ AUTH_USER_MODEL = 'account.User'
 
 CART_SESSION_SLUG = 'cart'
 
-# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-
-# EMAIL_HOST = 'smtp.mailtrap.io'
-# EMAIL_HOST_USER = 'c111ea088cc2c8'
-# EMAIL_HOST_PASSWORD = '46c051c8a44daf'
-# EMAIL_PORT = '2525'
-
-SEND_GRID_API_KEY = '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'
-EMAIL_HOST = 'smtp.sendgrid.net'
-EMAIL_HOST_USER = 'Priya0318'
-EMAIL_HOST_PASSWORD = 'Priya@0318' #sendgrid email
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-DEFAULT_FROM_EMAIL = 'MYEMAIL'
-
 # Braintree settings
 BRAINTREE_MERCHANT_ID = 'cypz6hm4gv5z79gk'
 BRAINTREE_PUBLIC_KEY = 'bqytzq85md6mfnpb'
@@ -205,30 +190,6 @@ try:
 except ImportError:
     pass
 
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '612615452253-s84u3ebk5cn4scufnqiumqo5lagf6vqt.apps.googleusercontent.com'
-
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'QThrD35QGGHdkJX47MU-eCva'
-
-SOCIAL_AUTH_FACEBOOK_KEY = '441884003206783'  # App ID
-SOCIAL_AUTH_FACEBOOK_SECRET = '9a5927cfb87e14d64694e030426e9e62'  # App Secret
-
 LOGIN_URL = '/auth/login/google-oauth2/'
 
 
-# AWS_ACCESS_KEY_ID = 'AKIAIYIJ43FDMKTHUMNQ'
-# AWS_SECRET_ACCESS_KEY = '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'
-# AWS_STORAGE_BUCKET_NAME = 'fablab-t3'
-# AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
-# AWS_S3_OBJECT_PARAMETERS = {
-#     'CacheControl': 'max-age=86400',
-# }
-# AWS_LOCATION = 'static'
-#
-# AWS_DEFAULT_ACL = None
-#
-#
-# STATIC_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
-#
-# STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-#
-# DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
