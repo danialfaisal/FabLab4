@@ -50,18 +50,7 @@ def register(request):
                 user_form.cleaned_data['password'])
             # Save the User object
             new_user.save()
-            # Create the user profile
-            account_sid = 'AC0c295bbe0188df7fba3891467814fa90'
-            auth_token = 'd920d8afc49201a84f6dd7557e097bbe'
-            client = Client(account_sid, auth_token)
-
-            message = client.messages \
-               .create(
-                body="A new user just registered on your website",
-                from_='+12252894610',
-                to='+19132918965'
-                 )
-            return render(request,
+                        return render(request,
                           'account/register_done.html',
                           {'new_user': new_user})
     else:
