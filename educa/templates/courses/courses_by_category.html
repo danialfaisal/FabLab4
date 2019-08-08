@@ -122,40 +122,5 @@
     cursor: pointer;
 }
     </style>
-    <script>
-
-    function getCurrency(price) {
-        endpoint = 'live';
-        access_key = '5d7eba2a1ea30229f21777a0a4141ee7';
-
-        // define from currency, to currency, and amount
-        from = "USD";
-        to = "INR";
-        amount = price;
-        combine = from + to;
-        // execute the conversion using the "convert" endpoint:
-        $.ajax({
-            url: 'http://apilayer.net/api/' + endpoint + '?access_key=' + access_key + '&from=' + from + '&to=' + to + '&amount=' + amount,
-            dataType: 'jsonp',
-            success: function (json) {
-
-                value = json.quotes[combine];
-                // access the conversion result in json.result
-                {#alert(value * price);#}
-                {#total = value * price;#}
-            }
-
-        });
-
-        Swal.fire({
-            title: 'USD to INR',
-            text: "Value of $"+price +" is ₹"+ Math.round(value * price),
-            type: 'info',
-            confirmButtonText: 'OK'
-                 })
-
-
-    }
-
-    </script>
+    
 {% endblock %}
